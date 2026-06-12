@@ -1,0 +1,53 @@
+IMPORT math
+
+#INPUT
+GET a, b, f_x, method FROM user
+
+#PROCESS 
+IF "pi" IN a_input THEN
+    a <- EVALUATE(REPLACE "pi" WITH "3.14159" IN a_input)
+ELSE
+    a <- CONVERT_TO_FLOAT(a_input)
+ENDIF
+
+IF "pi" IN b_input THEN
+    b <- EVALUATE(REPLACE "pi" WITH "3.14159" IN b_input)
+ELSE
+    b <- CONVERT_TO_FLOAT(b_input)
+ENDIF
+
+n <- 1000
+h <- (b-a)/n
+area <- 0.0
+shift <- 0
+constant <- 0
+variable <- 0
+
+#METHODS
+IF method IS EQUAL "RRM" THEN
+    shift <- 1
+ENDIF
+
+IF method IS EQUAL "MRM" THEN
+    constant <- h/2
+ENDIF
+
+IF method IS EQUAL "TRAP" THEN
+    variable <- 1
+    area <- area + (h/2) * f_x(a)
+    
+    FOR i IN RANGE (variable, n) DO
+        xi <- a + i * h
+        area <- area + (h/2) * 2 * f_x(xi)
+    ENDFOR
+    
+    area <- area + (h/2) * f_x(b)
+ELSE   
+    FOR i IN RANGE (0 + shift, n + shift) DO
+        xi <- a + i * h
+        area <- area + h * f_x(xi + constant)
+    ENDFOR
+ENDIF
+
+#OUTPUT
+DISPLAY "The integration of ", f_x, " is ", area
