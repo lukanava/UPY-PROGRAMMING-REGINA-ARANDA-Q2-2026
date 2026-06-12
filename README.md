@@ -1,2 +1,5 @@
 # UPY-PROGRAMMING-REGINA-ARANDA-Q2-2026
-Repositorio para guardar todos mis trabajos y proyectos de la materia de programacion
+Objetivo:
+Hacer un codigo de python que permita realizar integrales 
+IA Declaration:
+Use IA para poder corregguir las funciones de pi y que tambien pudiera aplicar fracciones y multiplos de pi
