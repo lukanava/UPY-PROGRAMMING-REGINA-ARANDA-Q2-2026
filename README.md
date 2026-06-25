@@ -1,6 +1,17 @@
 # UPY-PROGRAMMING-REGINA-ARANDA-Q2-2026
+
+Alumno:Aranda Nava Regina
+
+Profesor: Jorge Javier Pedrozo 
+
+Cuatrimestre: 2-B
+
 Objetivo:
-Hacer un codigo de python que permita realizar integrales 
+
+Hacer un codigo de python qque permita conjugar verbos simples
+ 
 IA Declaration:
-Use IA para poder corregguir las funciones de pi y que tambien pudiera aplicar fracciones y multiplos de pi y tambien pra hacer el flowchart
-Si de guardo en README.md??
+
+Use IA para hacer el Flow chart
+
+
