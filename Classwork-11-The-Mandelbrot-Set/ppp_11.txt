@@ -1,0 +1,45 @@
+
+    CREATE empty dictionary config
+    OPEN file "config.txt" in READ mode AS config_file
+    
+    FOR EACH line IN config_file DO
+        Strip white spaces from line
+        SPLIT line by "=" INTO key AND value
+        CONVERT value TO FLOAT
+        STORE value IN config[key]
+    END FOR
+    CLOSE config_file
+
+    FOR EACH key, value IN config DO
+        DISPLAY key + "=" + value
+    END FOR
+
+    CONVERT config["ancho"] TO INTEGER AND ASSIGN TO width
+    CONVERT config["alto"] TO INTEGER AND ASSIGN TO height
+    CONVERT config["max_iter"] TO INTEGER AND ASSIGN TO max_iter
+
+    OPEN file "clase.csv" in WRITE mode AS output_file
+    WRITE TO output_file: "fila, columna, iteraciones\n"
+
+    FOR row FROM 0 TO height - 1 DO
+        FOR col FROM 0 TO width - 1 DO
+            
+            real = config["real_min"] + (col / width) * (config["real_max"] - config["real_min"])
+            imag = config["imag_min"] + (row / height) * (config["imag_max"] - config["imag_min"])
+            c = CREATE_COMPLEX(real, imag)
+            
+            z = CREATE_COMPLEX(0, 0)
+            iterations = 0
+            
+            WHILE (MAGNITUDE(z) <= 2) AND (iterations < max_iter) DO
+                z = (z * z) + c
+                iterations = iterations + 1
+            END WHILE
+            
+            WRITE TO output_file: row + "," + col + "," + iterations + "\n"
+            
+        END FOR
+    END FOR
+
+    CLOSE output_file
+    DISPLAY "DONE"
