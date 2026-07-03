@@ -1,0 +1,47 @@
+    CREATE empty dictionary config
+    OPEN file "config.txt" in READ mode AS config_file
+    
+    FOR EACH line IN config_file DO
+        Strip white spaces from line
+        SPLIT line by "=" INTO key AND value
+        IF "." IS IN value THEN
+            CONVERT value TO FLOAT
+        ELSE
+            CONVERT value TO INTEGER
+        END IF
+        STORE value IN config[key]
+    END FOR
+    CLOSE config_file
+
+    OPEN file "clase.csv" in READ mode AS data_file
+    READ ALL lines FROM data_file INTO data_list
+    CLOSE data_file
+
+    ASSIGN config["alto"] TO height
+    ASSIGN config["ancho"] TO width
+    ASSIGN config["max_iter"] TO max_iter
+
+    CREATE empty image "img" with format "HSV" and size (width, height)
+
+    REMOVE first element FROM data_list
+
+    FOR EACH row_data IN data_list DO
+        Strip white spaces from row_data
+        SPLIT row_data by "," INTO string_row, string_col, string_iter
+        
+        CONVERT string_row, string_col, string_iter TO INTEGERS: row, col, iterations
+        
+        IF iterations EQUALS max_iter THEN
+            brightness = 40
+        ELSE
+            brightness = CONVERT_TO_INTEGER((iterations / max_iter) * 255)
+        END IF
+        
+        PAINT_PIXEL on "img" AT (col, row) WITH COLOR (brightness, 255, 255)
+        
+    END FOR
+
+    CONVERT image "img" from "HSV" to "RGB" AS img_rgb
+    SAVE img_rgb AS "mandelbrot-clase.png"
+    
+    DISPLAY "DONE"
