@@ -1,0 +1,84 @@
+Import math
+    TRY
+        DISPLAY "Write the left endpoint of the interval: "
+        READ string_a
+        
+        DISPLAY "Write the right endpoint of the interval: "
+        READ string_b
+        
+        DISPLAY "Write the function to integrate: "
+        READ f_x
+        
+        DISPLAY "Write the integration method (LRM,RRM,MRM,TRAP): "
+        READ input_method
+        method = CONVERT_TO_UPPERCASE(input_method)
+        TRY
+            IF "pi" IS IN string_a THEN
+                Replace "pi" with text representation of math.pi in string_a
+                a = EVALUATE_MATHEMATICALLY(string_a)
+            ELSE
+                a = CONVERT_TO_FLOAT(string_a)
+            END IF
+
+            IF "pi" IS IN string_b THEN
+                Replace "pi" with text representation of math.pi in string_b
+                b = EVALUATE_MATHEMATICALLY(string_b)
+            ELSE
+                b = CONVERT_TO_FLOAT(string_b)
+            END IF
+        CATCH ValueError
+            THROW NEW ValueError("The interval values must be numeric.")
+        END TRY
+
+        valid_methods = ["LRM", "RRM", "MRM", "TRAP"]
+        IF method IS NOT IN valid_methods THEN
+            THROW NEW InvalidMethodError("Invalid integration method.")
+        END IF
+
+        n = 1000
+        h = (b - a) / n
+        area = 0.0
+        shift = 0
+        constant = 0
+        variable = 0
+
+        IF method EQUALS "RRM" THEN
+            shift = 1
+        END IF
+
+        IF method EQUALS "MRM" THEN
+            constant = h / 2
+        END IF
+        
+        TRY
+            IF method EQUALS "TRAP" THEN
+                variable = 1
+                
+                f_0 = REPLACE "x" WITH text(a) IN f_x
+                area = area + (h / 2) * EVALUATE_MATHEMATICALLY(f_0)
+
+                FOR i FROM variable TO n - 1 DO
+                    xi = a + i * h
+                    f_xi = REPLACE "x" WITH text(xi) IN f_x
+                    area = area + (h / 2) * 2 * EVALUATE_MATHEMATICALLY(f_xi)
+                END FOR
+                f_xn = REPLACE "x" WITH text(b) IN f_x
+                area = area + (h / 2) * EVALUATE_MATHEMATICALLY(f_xn)
+
+            ELSE
+                FOR i FROM (0 + shift) TO (n + shift - 1) DO
+                    xi = a + i * h
+                    height_expr = REPLACE "x" WITH text(xi + constant) IN f_x
+                    area = area + h * EVALUATE_MATHEMATICALLY(height_expr)
+                END FOR
+            END IF
+
+        CATCH AnyException
+            THROW NEW ValueError("The mathematical function is invalid.")
+        END TRY
+        DISPLAY "The integration of " + f_x + " is " + area
+    CATCH InvalidMethodError AS e
+        DISPLAY e.message
+    CATCH ValueError AS e
+        DISPLAY e.message
+    END TRY

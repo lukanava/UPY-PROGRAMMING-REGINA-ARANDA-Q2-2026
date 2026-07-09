@@ -1,0 +1,47 @@
+
+    check = TRUE
+    
+    WHILE check DO
+        TRY
+            DISPLAY "Ingrese el rol: "
+            READ input_rol
+            SPLIT input_rol BY "-" INTO rol_sin_digito AND digito
+            check = FALSE
+        CATCH ValueError
+            DISPLAY "Rol incorrecto"
+        END TRY
+    END WHILE
+
+    TRY
+        invertido = REVERSE_STRING(rol_sin_digito)
+        IF invertido IS NOT NUMERIC THEN
+            THROW NEW ValueError(invertido + " tiene caracteres no numericos")
+        END IF
+    CATCH ValueError AS e
+        DISPLAY e.message
+    END TRY
+
+    sequence = [2, 3, 4, 5, 6, 7]
+    suma = 0
+    len_invertido = LENGTH(invertido)
+
+    FOR index FROM 0 TO len_invertido - 1 DO
+        multiplicando = sequence[index MOD 6]
+        string_char = SUBSTRING(invertido, FROM index TO index + 1)
+        numero = CONVERT_TO_INTEGER(string_char)
+        suma = suma + (numero * multiplicando)
+    END FOR
+
+    total = suma MOD 11
+    verificador = 11 - total
+
+    TRY
+        IF verificador NOT EQUALS CONVERT_TO_INTEGER(digito) THEN
+            THROW NEW DigitoVerificadorError("El digito verificado no coincide, " + verificador)
+        END IF
+        
+        DISPLAY rol_sin_digito + "-" + verificador
+        
+    CATCH DigitoVerificadorError AS e
+        DISPLAY e.message
+    END TRY
