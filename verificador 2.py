@@ -8,17 +8,16 @@ while check:
         check=False
     except ValueError:
         print("Rol incorrecto")
-        
-invertido= rol_sin_digito[::-1]
-        
+
 try:
+    numerical = rol [:]
     invertido = rol_sin_digito[::-1]
     if not invertido.isnumeric():
         raise ValueError (f"{invertido} tiene caracteres no numericos")
+    if not numerical.isnumeric():
+        raise ValueError (f"{numerical} tiene caracteres no numericos \n Intente de nuevo")
 except ValueError as e:
-        print(e)
-        
-
+    print(e)
 secuencia =[2,3,4,5,6,7]
 suma=0
 
@@ -28,12 +27,11 @@ for index in range (len(invertido)):
     suma+=numero * multiplicando
     
 total=suma%11
-
 verificador= 11- total
 
 try:
     if verificador != int(digito):
-        raise DigitoVerificadorError(f"El digito verificado no coincide, {verificador}")
+        raise DigitoVerificadorError(f"El dgito verificador no coincide, {verificador}")
 except DigitoVerificadorError as e:
     print(e)
 else:
