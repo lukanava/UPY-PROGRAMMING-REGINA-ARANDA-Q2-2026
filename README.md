@@ -6,13 +6,5 @@ Profesor: Jorge Javier Pedrozo
 
 Cuatrimestre: 2-B
 
-Objetivo:
-
-Un codigo que hace algo con numeros imaginarios para obtener la imagen de uun fractal 
- 
-IA Declaration:
- 
-Use IA para hacer el flowchart y pasar el python a ppp
-
-Esto es solo un avance de la  tarea 11 un adelanto que hicimos con el profe pedrozo en clase
+Repositorio para subir proyectos y actividades de la materia de programacion 
 
