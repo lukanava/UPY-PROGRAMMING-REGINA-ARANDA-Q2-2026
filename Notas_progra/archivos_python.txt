@@ -1,0 +1,23 @@
+file = open("naombre.txt" o cualquer archivo, "r")
+file.close()
+
+open toma dos argumentos, el pat que es la ubicacion del arcchivo, y "r" es el modo (en este caso lectura)
+write permite escrbir 
+a es de apent es decir lo agrega al final del archivo 
+r+ para leer y escribir
+w PELIGROOO pq  borra 
+la forma prefereida  de abrir erchivos es with tambien cierra automaticamente
+with open("archivo.txt","r") as file:
+    content=file.read()
+path relativo y absoluto
+el relativo funciona en el rpograma en otro lado 
+los relativos son portables, es decir trabajan en cualquier lado 
+los absolutos son fragiles 
+la libreria OS permite modificar y alteral los paths
+cuando leemos  un csv usar skipt "next"
+el csv se puede convertir en diccionario
+open(path,mode)
+.read() lee todo el arcivho
+.readline() para rchvos grandes
+
+

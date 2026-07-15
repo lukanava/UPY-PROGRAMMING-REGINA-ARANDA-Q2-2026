@@ -1,0 +1,32 @@
+Manejo de errores
+excepition es un tipo de error en el cual nos dice que no encuenntra el archivo
+traceback dice  donde, que, y porque del error
+normal flow vs error flow
+file not found, value error,typer,key, index, zerodivision error
+try/except
+  try:
+    #codigo que puede fallar
+  except ExceptionType:
+    #what todo if it fails, el erroe es ago que ya sabes que va  a cahcar
+
+use  as e para capturar la excepcion y  mostrar el mensaje
+else es si todo sale bien y el finallly se  hace pase lo que pase
+
+alzar excepciones:
+usamos raise para señaizar explicitamne donde esta el error
+si la condicion  no se cumple manda el error no  espera que python lo cahce
+
+para crear un error custommizado lo  hacemos asi 
+class errorcreado (exceprion)
+    pass                          #esto al inicio del programa
+asi le decimos al pythhon que el error lo estamos creando
+
+logging es la part donde se va a documentar eel proeso del programa
+
+logging levels:
+debug-> innfo detallada para diagnositco de problemas
+info-> confirmar que todo funciona
+warning-> algo sale mal pero el programa sigue correindo
+error-> problemas serios donde el programa falla 
+critical-> el programa o sistema falla por completo 
+
