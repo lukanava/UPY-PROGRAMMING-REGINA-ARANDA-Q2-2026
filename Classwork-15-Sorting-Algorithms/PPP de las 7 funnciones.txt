@@ -1,0 +1,122 @@
+PPP Bubble
+Función bubble_sort(numbers):
+    n = longitud(numbers)
+    Para sweep desde 0 hasta n - 1:
+        Para pair desde 0 hasta n - 2 - sweep:
+            Si numbers[pair] > numbers[pair + 1] entonces:
+                Intercambiar numbers[pair] con numbers[pair + 1]
+Fin Función
+
+
+
+PPP Insertion
+Función insertion_sort(numbers):
+    n = longitud(numbers)
+    Para i desde 1 hasta n - 1:
+        key = numbers[i]
+        j = i - 1
+        Mientras j >= 0 Y numbers[j] > key hacer:
+            numbers[j + 1] = numbers[j]
+            j = j - 1
+        numbers[j + 1] = key
+Fin Función
+
+
+
+PPP Selection
+Función selection_sort(numbers):
+    n = longitud(numbers)
+    Para i desde 0 hasta n - 1:
+        min_idx = i
+        Para j desde i + 1 hasta n - 1:
+            Si numbers[j] < numbers[min_idx] entonces:
+                min_idx = j
+        Intercambiar numbers[i] con numbers[min_idx]
+Fin Función
+
+
+
+PPP Bars
+Función draw_bars(numbers, selected):
+    Limpiar pantalla gráfica
+    n = longitud(numbers)
+    bar_width = 10.0 / n
+    
+    Para cada índice i y valor number en numbers:
+        x = (i * bar_width) + (bar_width / 2)
+        Si i está en el conjunto selected entonces:
+            Definir color como Rojo
+        Sino:
+            Definir color como Azul
+        
+        Dibujar rectángulo relleno en posición x con altura number
+    Mostrar cambios en pantalla con retraso de 100ms
+Fin Función
+
+
+
+
+PPP Bubble animated
+Función bubble_sort_animated(numbers):
+    Configurar escalas de los ejes X e Y
+    n = longitud(numbers)
+    
+    Para sweep desde 0 hasta n - 1:
+        swapped = Falso
+        Para pair desde 0 hasta n - 2 - sweep:
+            Llamar draw_bars(numbers, seleccionando pair y pair + 1)
+            Si numbers[pair] > numbers[pair + 1] entonces:
+                Intercambiar numbers[pair] con numbers[pair + 1]
+                swapped = Verdadero
+            Llamar draw_bars(numbers, seleccionando pair y pair + 1)
+            
+        Si swapped es Falso entonces:
+            Terminar bucle (ya está ordenado)
+            
+    Llamar draw_bars(numbers) sin selecciones
+    Mostrar pantalla final
+Fin Función
+
+
+PPP Insertion animated
+Función insertion_sort_animated(numbers):
+    Configurar escalas de los ejes X e Y
+    n = longitud(numbers)
+    
+    Para i desde 1 hasta n - 1:
+        key = numbers[i]
+        j = i - 1
+        
+        Mientras j >= 0 Y numbers[j] > key hacer:
+            Llamar draw_bars(numbers, seleccionando j y j + 1)
+            numbers[j + 1] = numbers[j]
+            Llamar draw_bars(numbers, seleccionando j y j + 1)
+            j = j - 1
+            
+        numbers[j + 1] = key
+        
+    Llamar draw_bars(numbers) sin selecciones
+    Mostrar pantalla final
+Fin Función
+
+
+
+PPP Selection animated
+Función selection_sort_animated(numbers):
+    Configurar escalas de los ejes X e Y
+    n = longitud(numbers)
+    
+    Para i desde 0 hasta n - 1:
+        min_idx = i
+        Para j desde i + 1 hasta n - 1:
+            Llamar draw_bars(numbers, seleccionando min_idx y j)
+            Si numbers[j] < numbers[min_idx] entonces:
+                min_idx = j
+                
+        Si min_idx no es igual a i entonces:
+            Intercambiar numbers[i] con numbers[min_idx]
+            
+    Llamar draw_bars(numbers) sin selecciones
+    Mostrar pantalla final
+Fin Función
+
